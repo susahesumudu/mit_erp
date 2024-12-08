@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- Add this line -->
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+   
+<h2>Welcome to Teacher Dashboard</h2>
+
+
+
+<h3>At-Risk Students</h3>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Student Name</th>
+            <th>Performance Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in risk_students %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ student.name }}</td>
+            <td>At Risk</td>
+            <td>
+                <a href="{% url 'student_detail' student.pk %}" class="btn view-btn">Details</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No at-risk students currently identified.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Student Summary</h2>
+<h1>Teacher Dashboard</h1>
+
+<table  cellpadding="10" cellspacing="0" class="styled-table">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+           
+            <th>Final Assessment Score</th>
+            <th>Tasks Completed</th>
+            <th>Exercises Completed</th>
+            <th>On-Time Completion</th>
+            <th>Practical Hours</th>
+            <th>Theory Hours</th>
+            <th>No. of Previous Attempts</th>
+            <th>Industrial Training Experience</th>
+           
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for marks_tracker in marks_trackers %}
+            <tr>
+                <td>{{ marks_tracker.student.first_name }} {{ marks_tracker.student.last_name }}</td>
+              
+                <td>{{ marks_tracker.final_assessment_score }}</td>
+                <td>{{ marks_tracker.tasks_completed }}</td>
+                <td>{{ marks_tracker.exercises_completed }}</td>
+                <td>{{ marks_tracker.on_time_completion }}</td>
+                <td>{{ marks_tracker.practical_hours }}</td>
+                <td>{{ marks_tracker.theory_hours }}</td>
+                <td>{{ marks_tracker.num_of_prev_attempts }}</td>
+                <td>{{ marks_tracker.industry_training_experience }}</td>
+               
+                <td>
+                    <form action="{% url 'users:predict_grade' marks_tracker.student.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Predict Grade</button>
+</form>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="12">No students found.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+

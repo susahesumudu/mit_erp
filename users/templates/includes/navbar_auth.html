@@ -1,0 +1,19 @@
+<!-- templates/includes/navbar_auth.html -->
+
+
+    <div class="container-fluid">
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                 <li class="nav-item">
+                       <a href="{% url 'logout' %}">Logout</a> 
+                 </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+
+ 
+

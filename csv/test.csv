@@ -1,0 +1,3 @@
+course_name,course_code,duration_months,theory_hours,practical_hours,fee,module_name,module_theory_hours,module_practical_hours,module_fee,task_name,task_theory_hours,task_practical_hours,task_fee
+Python Basics,PB101,3,30,20,1000,Introduction to Python,10,5,300,Task 1,2,1,60
+

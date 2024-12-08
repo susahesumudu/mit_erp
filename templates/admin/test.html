@@ -1,0 +1,15 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+   
+    <form method="post" enctype="multipart/form-data" style="margin-top: 20px;">
+        {% csrf_token %}
+        <label>Come</label>
+        <input type="text" value="hi">
+        <button type="submit" class="button">Upload</button>
+    </form>
+    
+</div>
+{% endblock %}

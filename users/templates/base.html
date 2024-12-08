@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <!-- Logo and Home link -->
+            <div class="logo">
+               
+            </div>
+    
+            <!-- Authentication-related Navbar (e.g., login, logout links) -->
+            <div class="auth-links">
+                {% include 'includes/navbar_auth.html' %}
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content with a sidebar and main page content -->
+    <div class="dashboard-container">
+        <!-- Sidebar section -->
+        <aside class="sidebar">
+            {% include 'includes/sidebar.html' %}
+        </aside>
+
+        <!-- Main content section -->
+        <section class="main-content">
+            {% block content %}
+            <!-- Page-specific content will be injected here -->
+            {% endblock %}
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Training Management System</p>
+    </footer>
+
+</body>
+</html>
+

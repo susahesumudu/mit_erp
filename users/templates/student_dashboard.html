@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- Load static files -->
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<script>
+    // Establish a WebSocket connection to receive real-time notifications
+    let protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+    const notificationSocket = new WebSocket(
+        protocol + window.location.host + '/ws/notifications/'
+    );
+
+    // When a message is received, show an alert with the message
+    notificationSocket.onmessage = function(e) {
+        try {
+            const data = JSON.parse(e.data);
+            if (data.message) {
+                alert(data.message);  // Display the notification as an alert
+            } else {
+                console.error("Received data is missing 'message' key.");
+            }
+        } catch (error) {
+            console.error("Failed to parse WebSocket message:", error);
+        }
+    };
+
+    // Handle WebSocket closure
+    notificationSocket.onclose = function(e) {
+        console.error('Notification socket closed unexpectedly:', e);
+    };
+
+    // Handle any WebSocket errors
+    notificationSocket.onerror = function(e) {
+        console.error('WebSocket error occurred:', e);
+    };
+</script>
+
+
+<h1>{{ request.user.username }}'s Dashboard</h1>
+
+<h2>Assigned Activities</h2>
+<table border="1" cellpadding="10" cellspacing="0" class="styled-table">
+    <thead>
+        <tr>
+            <th>Activity Title</th>
+            <th>Description</th>
+            <th>Activity Type</th>
+            <th>Session Type</th>
+            <th>Submission Deadline</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for activity in activities %}
+            <tr>
+                <td>{{ activity.title }}</td>
+                <td>{{ activity.description }}</td>
+                <td>{{ activity.activity_type }}</td>
+                <td>{{ activity.session_type }}</td>
+                <td>{{ activity.submission_deadline }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">No activities assigned.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Performance</h2>
+
+<!-- Create a canvas element for the graph -->
+<canvas id="performanceChart" width="400" height="200"></canvas>
+
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Fetch data from the template
+    const dailyMarks = {{ marks_tracker.daily_marks }};
+    const weeklyMarks = {{ marks_tracker.weekly_marks }};
+    const monthlyMarks = {{ marks_tracker.monthly_marks }};
+    const courseWiseMarks = {{ marks_tracker.course_wise_marks }};
+
+    // Render the chart using Chart.js
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const performanceChart = new Chart(ctx, {
+        type: 'bar', // You can change this to 'line' or 'pie' if you prefer
+        data: {
+            labels: ['Daily Marks', 'Weekly Marks', 'Monthly Marks', 'Course-Wise Marks'], // Labels for the x-axis
+            datasets: [{
+                label: 'Performance',
+                data: [dailyMarks, weeklyMarks, monthlyMarks, courseWiseMarks], // Data for each bar
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true // Ensures the y-axis starts from 0
+                }
+            }
+        }
+    });
+</script>
+
+<h2>Performance</h2>
+
+<!-- Create a canvas element for the pie chart -->
+<canvas id="performanceChart" width="400" height="200"></canvas>
+
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Fetch data from the template
+    const dailyMarks = {{ marks_tracker.daily_marks }};
+    const weeklyMarks = {{ marks_tracker.weekly_marks }};
+    const monthlyMarks = {{ marks_tracker.monthly_marks }};
+    const courseWiseMarks = {{ marks_tracker.course_wise_marks }};
+
+    // Render the pie chart using Chart.js
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const performanceChart = new Chart(ctx, {
+        type: 'pie', // Change the type to 'pie'
+        data: {
+            labels: ['Daily Marks', 'Weekly Marks', 'Monthly Marks', 'Course-Wise Marks'], // Labels for the pie slices
+            datasets: [{
+                label: 'Performance',
+                data: [dailyMarks, weeklyMarks, monthlyMarks, courseWiseMarks], // Data for each slice
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true, // Makes the chart responsive to different screen sizes
+            plugins: {
+                legend: {
+                    position: 'top', // Positions the legend at the top
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw + ' marks';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+
+{% endblock %}
+

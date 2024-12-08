@@ -1,0 +1,22 @@
+course_name,course_code,duration_months,theory_hours,practical_hours,fee,module_name,module_theory_hours,module_practical_hours,module_fee,task_name,task_theory_hours,task_practical_hours,task_fee
+Python Basics,PB101,3,30,20,1000,Introduction to Python,10,5,300,Task 1,2,1,60
+Course 1,C001,6,60,40,1500,Module 1,20,10,500,Task 1,5,2,100
+Course 2,C002,8,80,50,2000,Module 2,25,15,600,Task 2,6,3,120
+Course 3,C003,4,40,30,1200,Module 3,15,10,400,Task 3,4,2,80
+Course 4,C004,5,50,35,1300,Module 4,18,12,450,Task 4,5,2,90
+Course 5,C005,7,70,45,1800,Module 5,22,14,550,Task 5,7,3,110
+Course 6,C006,3,30,20,1000,Module 6,10,5,300,Task 6,3,1,70
+Course 7,C007,9,90,60,2200,Module 7,30,20,700,Task 7,9,4,130
+Course 8,C008,10,100,70,2500,Module 8,35,25,800,Task 8,10,5,150
+Course 9,C009,2,20,15,800,Module 9,8,5,200,Task 9,2,1,50
+Course 10,C010,11,110,80,2700,Module 10,40,30,900,Task 10,11,6,170
+AI Basics,AIB001,3,30,20,1500,Neural Networks,10,5,300,Task 1,2,1,60
+Cloud Computing,CC002,4,40,25,1800,Introduction to AWS,15,10,450,Task 1,3,2,90
+Cybersecurity,CY003,6,60,30,2000,Network Security,20,10,600,Task 1,4,2,120
+Machine Learning,ML004,5,50,35,2200,Supervised Learning,25,15,750,Task 1,5,3,150
+Big Data,BD005,4,40,30,1800,Hadoop Basics,20,10,600,Task 1,4,2,120
+DevOps,DO006,3,30,20,1600,CI/CD Pipelines,10,10,400,Task 1,2,1,80
+Blockchain,BC007,6,60,40,2500,Smart Contracts,30,20,1000,Task 1,6,4,250
+Digital Marketing,DM008,3,30,15,1400,SEO Basics,10,5,300,Task 1,2,1,60
+UI/UX Design,UX009,4,40,25,1700,Design Principles,15,10,500,Task 1,3,2,100
+Game Development,GD010,5,50,30,2300,Unity Basics,25,15,800,Task 1,5,3,180

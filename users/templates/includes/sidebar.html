@@ -1,0 +1,129 @@
+<!-- templates/includes/sidebar.html -->
+
+{% if user.is_authenticated %}
+    <div class="sidebar bg-dark text-white p-3">
+        <!-- User Info -->
+        <div class="user-info mb-10">
+            <p class="mb-1">Logged in as:</p>
+            <h5>{{ user.username }}</h5>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <ul class="nav flex-column">
+            {% for group in user.groups.all %}
+                {% if group.name == 'Admin' %}
+                    <!-- Admin Features with icons -->
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="#">
+                            Manage Users
+                        </a>
+                        <i class="fas fa-users-cog"></i>  <!-- Right aligned icon -->
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="#">
+                            Site Settings
+                        </a>
+                        <i class="fas fa-cogs"></i>
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="#">
+                            View Reports
+                        </a>
+                        <i class="fas fa-chart-line"></i>
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="/admin/">
+                            Admin Panel
+                        </a>
+                        <i class="fas fa-user-shield"></i>
+                    </li>
+                {% elif group.name == 'Staff' %}
+                    <!-- Features for Staff -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Manage Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="course_create">Create Course </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Grade</a>
+                    </li>
+
+                  
+                {% elif group.name == 'Teacher' %}
+                  <!-- Teacher-specific links -->
+                     <h2>Manage</h2>
+ <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="{% url 'teacher_dashboard' %}">
+                            Teacher Dashboard
+                        </a>
+                        <i class="fas fa-clipboard-list"></i>
+                    </li>
+
+            <!-- Course Section -->
+            <h3>Courses</h3>
+                  <ul>
+                      <li><a href="{% url 'course_list' %}">View All Courses</a></li>
+               
+                  </ul>
+
+            <!-- Module Section -->
+            <h3>Modules</h3>
+                  <ul>
+                      <li><a href="{% url 'module_list' %}">View All Modules</a></li>
+                     
+                  </ul>
+
+            <!-- Task Section -->
+            <h3>Tasks</h3>
+                    <ul>
+                        <li><a href="{% url 'task_list' %}">View All Tasks</a></li>
+                     
+                    </ul>
+
+            <!-- Activity Section -->
+            <h3>Activities</h3>
+                    <ul>
+                        <li><a href="{% url 'activity_list' %}">View All Activities</a></li>
+                        <li><a href="{% url 'activity_create' %}">Add New Activity</a></li>
+                    </ul>
+                    <ul>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Gradeing Students</a>
+                    </li>
+                    </ul>
+                {% elif group.name == 'Student' %}
+                    <!-- Student Features with icons -->
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="{% url 'student_dashboard' %}">
+                            Student Dashboard
+                        </a>
+                        <i class="fas fa-clipboard-list"></i>
+                    </li>
+
+  <!-- Features for Students -->
+                   
+                    <li class="nav-item">
+                        <a href="{% url 'activity_list' %}">View All Activities</a>
+                    </li>   
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="#">
+                            Submit Work
+                        </a>
+                        <i class="fas fa-upload"></i>
+                    </li>
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link text-white" href="#">
+                            View Grades
+                        </a>
+                        <i class="fas fa-clipboard-check"></i>
+                   
+                    <li class="nav-item">
+                        <a href="{% url 'activity_list' %}">View All Activities</a>
+                    </li>        
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
